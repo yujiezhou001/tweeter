@@ -1,0 +1,39 @@
+.new-tweet {
+    border-radius: 5px;
+    border: 1px solid turquoise;
+    background: lightseagreen;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
+    width: 400px;
+    margin: auto;
+    margin-top: 35px;
+    display: none;
+}
+
+h2.ui-header  {
+    border-bottom: 1px solid black;
+}
+
+input {
+    width: 20%;
+}
+
+textarea {
+    width: 100%;
+}
+
+.counter {
+    float:right;
+}
+
+.error-message {
+    color: black;
+    background-color: #ea6767;
+    border: 1px solid #f36969;
+    width: 380px;
+    border-radius: 5px;
+    padding-top: 0px;
+    margin-top: 6px;
+    display: none;
+}
