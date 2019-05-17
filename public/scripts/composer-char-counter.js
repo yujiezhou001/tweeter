@@ -1,3 +1,5 @@
+// Function that counts input characters
+
 $(document).ready(function() {
 
     const textbox = $("textarea");

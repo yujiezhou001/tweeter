@@ -17,6 +17,13 @@ h2.ui-header  {
 
 input {
     width: 20%;
+    background-color: rgb(201, 229, 238);
+    color: green;
+    border-radius: 2px;
+}
+
+input:hover {
+    background-color: white;
 }
 
 textarea {
@@ -28,11 +35,11 @@ textarea {
 }
 
 .error-message {
-    color: black;
+    color: #8e0909;
     background-color: #ea6767;
     border: 1px solid #f36969;
     width: 380px;
-    border-radius: 5px;
+    border-radius: 1px;
     padding-top: 0px;
     margin-top: 6px;
     display: none;

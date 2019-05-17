@@ -1,16 +1,10 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
+// Global variable 
+const url = "/tweets";
 
-// global variable 
-const url = "/tweets"
-
-//Everything inside document.ready
+// Everything inside  document ready so that page load is success
 $(document).ready(function() {
 
-// Create new article function
+// Function that creates new article html element (old tweet)
 const createArticle = articleObj => {
     const $article = $('<article>');
     const $header = $('<header>');
@@ -32,16 +26,22 @@ const createArticle = articleObj => {
     $contentDiv.append($ul);
     $article.append($contentDiv);
   
+    // Update tweet time with moment.js package
+    let postDate = new Date(articleObj.created_at);
+    let postTimePassedSinceNow = moment(postDate).fromNow();
     const $footer = $('<footer>').text(
-      `Created at ${articleObj.created_at}`
+      `Created ${postTimePassedSinceNow}`
     );
-  
+    const $icon =$('<i class="fas fa-flag"></i><i class="fas fa-retweet"></i><i class="fas fa-heart"></i>');
+    const $footerdiv = $('<div>');
+    $footerdiv.append($icon);
+    $footer.append($footerdiv);
     $article.append($footer);
   
     return $article;
   };
 
-  // function that creates new article using data in the database
+// Function that creates new article using data in the database
 function renderTweets(input) {
 
     for (const article of input) {
@@ -50,24 +50,24 @@ function renderTweets(input) {
     }
 }
 
-//Post Request function using Ajax;
-
+// Post Request function using Ajax;
 const request = url => {
 
     var $tweet = $('form');
     $tweet.on('submit', function (event) {
     event.preventDefault();
-      
     $.ajax({
     url: url,
     method: "POST",
     data: $(this).serialize()
     })
 
-    .done(function() {
-    loadTweets(url, "some");
-    console.log('this works heeere', event);
+    .done(function(res) {
+    $('#oldtweets').empty();
+    loadTweets(url, 'all');
+    console.log('this works', event);
     $('form')[0].reset();
+    $('.counter').text(140);
     })
     .fail(function(error) {
     console.log( "Request failed: " + error );
@@ -76,14 +76,12 @@ const request = url => {
 };
 
 
-//Get Request function using Ajax
-
+// Get Request function using Ajax
 const loadTweets = (url, loadAll) => {
     $.ajax({
         url: url,
         method: 'GET' 
         })
-            
         .done(function (response) {
             if (loadAll === "all") {
                 renderTweets(response);
@@ -99,17 +97,18 @@ const loadTweets = (url, loadAll) => {
         })
     };
 
+// Error message implementation
     const $button = $('input');
     const $error = $('.error-message');
     $button.on('click', function(event){
             $error.slideUp();
         const $textlength =  $('form textarea').val().length;
         if ($textlength === 0) {
-            $error.text("Please put in some text!")
+            $error.text("Please put in some text!");
             $error.slideDown();
             event.preventDefault(event);
         } else if($textlength > 140) {
-            $error.text("You've maxed out your text length!")
+            $error.text("You've maxed out your text length!");
             $error.slideDown();
             event.preventDefault(event);
         } else {
@@ -117,28 +116,21 @@ const loadTweets = (url, loadAll) => {
         }
     });
 
-//Form toggle on compose tweet and auto-select
 
-$("nav button").click(function() {
-    $(".new-tweet").slideToggle("fast");
-    $("textarea").focus();
+// Form toggle on compose tweet and auto-select
+    $("nav button").click(function() {
+        $(".new-tweet").slideToggle("fast");
+        $("textarea").focus();
     });
 
 
+// Load tweets upon page load
+    loadTweets(url, 'all');
 
 
-
-
-
-
-
-//document ready end bracket
+// Document ready end bracket
 });
 
-
-
-// loadTweets(url);
-//console.log($('form textarea').val());
 
 
 
