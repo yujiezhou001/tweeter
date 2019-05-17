@@ -54,25 +54,24 @@ function renderTweets(input) {
 const request = url => {
 
     var $tweet = $('form');
-    $tweet.on('submit', function (event) {
-    event.preventDefault();
-    $.ajax({
-    url: url,
-    method: "POST",
-    data: $(this).serialize()
-    })
-
-    .done(function(res) {
-    $('#oldtweets').empty();
-    loadTweets(url, 'all');
-    console.log('this works', event);
-    $('form')[0].reset();
-    $('.counter').text(140);
-    })
-    .fail(function(error) {
-    console.log( "Request failed: " + error );
-    });
-    });
+    // $tweet.on('submit', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: $('form').serialize()
+        })
+        .done(function(res) {
+            // $('#oldtweets').empty();
+            loadTweets(url, 'one');
+            console.log('this works', event);
+            $('form')[0].reset();
+            $('.counter').text(140);
+        })
+        .fail(function(error) {
+            console.log( "Request failed: " + error );
+        });
+    // });
 };
 
 
@@ -86,7 +85,9 @@ const loadTweets = (url, loadAll) => {
             if (loadAll === "all") {
                 renderTweets(response);
             } else {
-                const $articleEl = createArticle(response.pop());
+                console.log(response)
+                const $articleEl = createArticle(response[0]);
+                console.log("new tweet", $articleEl)
                 $('#oldtweets').prepend($articleEl);
             }
         })
