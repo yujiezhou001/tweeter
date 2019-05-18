@@ -6,7 +6,9 @@ This repository is the starter code for the project: Students will fork and clon
 
 ## Screenshots
 
-
+!["Screenshot of main page"](docs/main-page.png)
+!["Screenshot of tweeter box"](docs/tweeter-box.png)
+!["Screenshot of error message"](docs/error-message.png)
 
 ## Getting Started
 
